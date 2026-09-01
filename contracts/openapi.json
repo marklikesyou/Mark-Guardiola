@@ -1,0 +1,4794 @@
+{
+  "components": {
+    "schemas": {
+      "BenchPlayerView": {
+        "properties": {
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          },
+          "roles": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Roles",
+            "type": "array"
+          },
+          "utility": {
+            "title": "Utility",
+            "type": "number"
+          }
+        },
+        "required": [
+          "player_id",
+          "display_name",
+          "roles",
+          "utility"
+        ],
+        "title": "BenchPlayerView",
+        "type": "object"
+      },
+      "BudgetView": {
+        "properties": {
+          "effective_at": {
+            "format": "date-time",
+            "title": "Effective At",
+            "type": "string"
+          },
+          "fantasy_team_id": {
+            "format": "uuid",
+            "title": "Fantasy Team Id",
+            "type": "string"
+          },
+          "remaining_credits": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Remaining Credits",
+            "type": "string"
+          },
+          "total_credits": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Total Credits",
+            "type": "string"
+          }
+        },
+        "required": [
+          "remaining_credits",
+          "fantasy_team_id",
+          "total_credits",
+          "effective_at"
+        ],
+        "title": "BudgetView",
+        "type": "object"
+      },
+      "BudgetWrite": {
+        "properties": {
+          "remaining_credits": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "title": "Remaining Credits"
+          }
+        },
+        "required": [
+          "remaining_credits"
+        ],
+        "title": "BudgetWrite",
+        "type": "object"
+      },
+      "ExplanationView": {
+        "properties": {
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evidence_key": {
+            "title": "Evidence Key",
+            "type": "string"
+          },
+          "source_feature": {
+            "title": "Source Feature",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "evidence_key",
+          "source_feature",
+          "confidence"
+        ],
+        "title": "ExplanationView",
+        "type": "object"
+      },
+      "FantasyTeamView": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_user_team": {
+            "title": "Is User Team",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "remaining_credits": {
+            "anyOf": [
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining Credits"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "is_user_team"
+        ],
+        "title": "FantasyTeamView",
+        "type": "object"
+      },
+      "FixturePrediction": {
+        "properties": {
+          "data_cutoff": {
+            "format": "date-time",
+            "title": "Data Cutoff",
+            "type": "string"
+          },
+          "match": {
+            "$ref": "#/components/schemas/MatchSummary"
+          },
+          "players": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerFixturePrediction"
+            },
+            "title": "Players",
+            "type": "array"
+          },
+          "prediction_cutoff": {
+            "format": "date-time",
+            "title": "Prediction Cutoff",
+            "type": "string"
+          },
+          "prediction_run_id": {
+            "format": "uuid",
+            "title": "Prediction Run Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "match",
+          "prediction_run_id",
+          "prediction_cutoff",
+          "data_cutoff",
+          "players"
+        ],
+        "title": "FixturePrediction",
+        "type": "object"
+      },
+      "Formation": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 80,
+            "minLength": 1,
+            "pattern": "\\S",
+            "title": "Name",
+            "type": "string"
+          },
+          "slots": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Slots",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "slots"
+        ],
+        "title": "Formation",
+        "type": "object"
+      },
+      "FreshnessView": {
+        "properties": {
+          "latest_model_training": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Model Training"
+          },
+          "latest_prediction_cutoff": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Prediction Cutoff"
+          },
+          "latest_successful_ingestion": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Successful Ingestion"
+          }
+        },
+        "required": [
+          "latest_successful_ingestion",
+          "latest_prediction_cutoff",
+          "latest_model_training"
+        ],
+        "title": "FreshnessView",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "properties": {
+          "service": {
+            "default": "markguardiola-api",
+            "title": "Service",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "version",
+          "timestamp"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "ImportPlayer": {
+        "properties": {
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "player_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Player Id"
+          },
+          "purchase_price": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purchase Price"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "maxLength": 16,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          },
+          "team": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "ImportPlayer",
+        "type": "object"
+      },
+      "ImportResolutionView": {
+        "properties": {
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/ResolutionCandidateView"
+            },
+            "title": "Candidates",
+            "type": "array"
+          },
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "imported_name": {
+            "title": "Imported Name",
+            "type": "string"
+          },
+          "selected_player_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Player Id"
+          },
+          "status": {
+            "enum": [
+              "resolved",
+              "ambiguous",
+              "unresolved"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "imported_name",
+          "status",
+          "selected_player_id",
+          "confidence",
+          "candidates"
+        ],
+        "title": "ImportResolutionView",
+        "type": "object"
+      },
+      "ImportResult": {
+        "properties": {
+          "fantasy_team_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fantasy Team Id"
+          },
+          "resolutions": {
+            "items": {
+              "$ref": "#/components/schemas/ImportResolutionView"
+            },
+            "title": "Resolutions",
+            "type": "array"
+          },
+          "resolved_count": {
+            "title": "Resolved Count",
+            "type": "integer"
+          },
+          "unresolved_count": {
+            "title": "Unresolved Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "resolved_count",
+          "unresolved_count",
+          "resolutions"
+        ],
+        "title": "ImportResult",
+        "type": "object"
+      },
+      "JobCreate": {
+        "properties": {
+          "parameters": {
+            "additionalProperties": true,
+            "title": "Parameters",
+            "type": "object"
+          }
+        },
+        "title": "JobCreate",
+        "type": "object"
+      },
+      "JobStatus": {
+        "enum": [
+          "queued",
+          "running",
+          "succeeded",
+          "failed",
+          "cancelled"
+        ],
+        "title": "JobStatus",
+        "type": "string"
+      },
+      "JobView": {
+        "properties": {
+          "completed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "job_type": {
+            "title": "Job Type",
+            "type": "string"
+          },
+          "parameters": {
+            "additionalProperties": true,
+            "title": "Parameters",
+            "type": "object"
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "number"
+          },
+          "queue_job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Queue Job Id"
+          },
+          "queued_at": {
+            "format": "date-time",
+            "title": "Queued At",
+            "type": "string"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatus"
+          }
+        },
+        "required": [
+          "id",
+          "queue_job_id",
+          "job_type",
+          "status",
+          "parameters",
+          "progress",
+          "queued_at",
+          "started_at",
+          "completed_at",
+          "result",
+          "error"
+        ],
+        "title": "JobView",
+        "type": "object"
+      },
+      "KickoffPrecision": {
+        "enum": [
+          "unknown",
+          "date",
+          "minute"
+        ],
+        "title": "KickoffPrecision",
+        "type": "string"
+      },
+      "LeagueCreate": {
+        "properties": {
+          "competition_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Competition Id"
+          },
+          "head_to_head_enabled": {
+            "default": false,
+            "title": "Head To Head Enabled",
+            "type": "boolean"
+          },
+          "local_identity": {
+            "default": "local-owner",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Local Identity",
+            "type": "string"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/LeagueMode"
+          },
+          "name": {
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "owner_display_name": {
+            "default": "Allenatore",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Owner Display Name",
+            "type": "string"
+          },
+          "season_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Season Id"
+          },
+          "team_name": {
+            "default": "La mia rosa",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Team Name",
+            "type": "string"
+          },
+          "timezone": {
+            "default": "Europe/Rome",
+            "title": "Timezone",
+            "type": "string"
+          },
+          "total_credits": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "default": "500",
+            "title": "Total Credits"
+          }
+        },
+        "required": [
+          "name",
+          "mode"
+        ],
+        "title": "LeagueCreate",
+        "type": "object"
+      },
+      "LeagueMode": {
+        "enum": [
+          "classic",
+          "mantra"
+        ],
+        "title": "LeagueMode",
+        "type": "string"
+      },
+      "LeaguePage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/LeagueSummary"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "items",
+          "meta"
+        ],
+        "title": "LeaguePage",
+        "type": "object"
+      },
+      "LeagueRulesView": {
+        "properties": {
+          "effective_from": {
+            "format": "date-time",
+            "title": "Effective From",
+            "type": "string"
+          },
+          "formations": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Formation"
+                },
+                "maxItems": 100,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formations"
+          },
+          "roster_constraints": {
+            "$ref": "#/components/schemas/RosterConstraints"
+          },
+          "scoring": {
+            "$ref": "#/components/schemas/ScoringRules"
+          },
+          "substitution_rules": {
+            "$ref": "#/components/schemas/SubstitutionRules"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "effective_from"
+        ],
+        "title": "LeagueRulesView",
+        "type": "object"
+      },
+      "LeagueRulesWrite": {
+        "properties": {
+          "formations": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Formation"
+                },
+                "maxItems": 100,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formations"
+          },
+          "roster_constraints": {
+            "$ref": "#/components/schemas/RosterConstraints"
+          },
+          "scoring": {
+            "$ref": "#/components/schemas/ScoringRules"
+          },
+          "substitution_rules": {
+            "$ref": "#/components/schemas/SubstitutionRules"
+          }
+        },
+        "title": "LeagueRulesWrite",
+        "type": "object"
+      },
+      "LeagueSettingsWrite": {
+        "properties": {
+          "head_to_head_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Head To Head Enabled"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "title": "LeagueSettingsWrite",
+        "type": "object"
+      },
+      "LeagueSummary": {
+        "properties": {
+          "head_to_head_enabled": {
+            "title": "Head To Head Enabled",
+            "type": "boolean"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/LeagueMode"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "mode",
+          "head_to_head_enabled"
+        ],
+        "title": "LeagueSummary",
+        "type": "object"
+      },
+      "LeagueView": {
+        "properties": {
+          "competition_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Competition Id"
+          },
+          "fantasy_teams": {
+            "items": {
+              "$ref": "#/components/schemas/FantasyTeamView"
+            },
+            "title": "Fantasy Teams",
+            "type": "array"
+          },
+          "head_to_head_enabled": {
+            "title": "Head To Head Enabled",
+            "type": "boolean"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/LeagueMode"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "owner_user_id": {
+            "format": "uuid",
+            "title": "Owner User Id",
+            "type": "string"
+          },
+          "rules": {
+            "$ref": "#/components/schemas/LeagueRulesView"
+          },
+          "season_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Season Id"
+          },
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "mode",
+          "owner_user_id",
+          "competition_id",
+          "season_id",
+          "head_to_head_enabled",
+          "timezone",
+          "rules",
+          "fantasy_teams"
+        ],
+        "title": "LeagueView",
+        "type": "object"
+      },
+      "LineupRecommendationRequest": {
+        "properties": {
+          "bench_size": {
+            "anyOf": [
+              {
+                "maximum": 30.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bench Size"
+          },
+          "fantasy_team_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fantasy Team Id"
+          },
+          "risk_mode": {
+            "$ref": "#/components/schemas/RiskMode",
+            "default": "balanced"
+          }
+        },
+        "title": "LineupRecommendationRequest",
+        "type": "object"
+      },
+      "LineupRecommendationView": {
+        "properties": {
+          "bench": {
+            "items": {
+              "$ref": "#/components/schemas/BenchPlayerView"
+            },
+            "title": "Bench",
+            "type": "array"
+          },
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "data_cutoff": {
+            "format": "date-time",
+            "title": "Data Cutoff",
+            "type": "string"
+          },
+          "decision_cutoff": {
+            "format": "date-time",
+            "title": "Decision Cutoff",
+            "type": "string"
+          },
+          "evaluated_candidates": {
+            "default": 1,
+            "title": "Evaluated Candidates",
+            "type": "integer"
+          },
+          "expected_modifier": {
+            "default": 0.0,
+            "title": "Expected Modifier",
+            "type": "number"
+          },
+          "expected_points": {
+            "title": "Expected Points",
+            "type": "number"
+          },
+          "expected_substitutions": {
+            "default": 0.0,
+            "title": "Expected Substitutions",
+            "type": "number"
+          },
+          "explanations": {
+            "items": {
+              "$ref": "#/components/schemas/ExplanationView"
+            },
+            "title": "Explanations",
+            "type": "array"
+          },
+          "fantasy_team_id": {
+            "format": "uuid",
+            "title": "Fantasy Team Id",
+            "type": "string"
+          },
+          "formation": {
+            "title": "Formation",
+            "type": "string"
+          },
+          "global_optimality_proven": {
+            "default": false,
+            "title": "Global Optimality Proven",
+            "type": "boolean"
+          },
+          "optimization_method": {
+            "default": "scenario_beam_search",
+            "title": "Optimization Method",
+            "type": "string"
+          },
+          "p10_points": {
+            "title": "P10 Points",
+            "type": "number"
+          },
+          "p90_points": {
+            "title": "P90 Points",
+            "type": "number"
+          },
+          "recommendation_id": {
+            "format": "uuid",
+            "title": "Recommendation Id",
+            "type": "string"
+          },
+          "risk_mode": {
+            "$ref": "#/components/schemas/RiskMode"
+          },
+          "search_scenarios": {
+            "default": 0,
+            "title": "Search Scenarios",
+            "type": "integer"
+          },
+          "starters": {
+            "items": {
+              "$ref": "#/components/schemas/SelectedPlayerView"
+            },
+            "title": "Starters",
+            "type": "array"
+          },
+          "warnings": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "recommendation_id",
+          "fantasy_team_id",
+          "formation",
+          "risk_mode",
+          "starters",
+          "bench",
+          "expected_points",
+          "p10_points",
+          "p90_points",
+          "confidence",
+          "data_cutoff",
+          "decision_cutoff",
+          "explanations"
+        ],
+        "title": "LineupRecommendationView",
+        "type": "object"
+      },
+      "MarketImportRequest": {
+        "properties": {
+          "players": {
+            "items": {
+              "$ref": "#/components/schemas/ImportPlayer"
+            },
+            "maxItems": 1000,
+            "minItems": 1,
+            "title": "Players",
+            "type": "array"
+          },
+          "replace_existing": {
+            "default": true,
+            "title": "Replace Existing",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "players"
+        ],
+        "title": "MarketImportRequest",
+        "type": "object"
+      },
+      "MarketRecommendationItem": {
+        "properties": {
+          "affordability": {
+            "default": "affordable",
+            "enum": [
+              "affordable",
+              "unknown"
+            ],
+            "title": "Affordability",
+            "type": "string"
+          },
+          "asking_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asking Price"
+          },
+          "budget_efficiency": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Efficiency"
+          },
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "evaluation_method": {
+            "default": "per_fixture_scenario_search",
+            "title": "Evaluation Method",
+            "type": "string"
+          },
+          "expected_improvement": {
+            "title": "Expected Improvement",
+            "type": "number"
+          },
+          "explanations": {
+            "items": {
+              "$ref": "#/components/schemas/ExplanationView"
+            },
+            "title": "Explanations",
+            "type": "array"
+          },
+          "formation_after": {
+            "title": "Formation After",
+            "type": "string"
+          },
+          "formation_before": {
+            "title": "Formation Before",
+            "type": "string"
+          },
+          "formation_schedule_after": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Formation Schedule After",
+            "type": "array"
+          },
+          "formation_schedule_before": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Formation Schedule Before",
+            "type": "array"
+          },
+          "global_optimality_proven": {
+            "default": false,
+            "title": "Global Optimality Proven",
+            "type": "boolean"
+          },
+          "horizon_improvements": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Horizon Improvements",
+            "type": "object"
+          },
+          "optimization_horizon": {
+            "default": 1,
+            "title": "Optimization Horizon",
+            "type": "integer"
+          },
+          "recommendation_id": {
+            "format": "uuid",
+            "title": "Recommendation Id",
+            "type": "string"
+          },
+          "replace_name": {
+            "title": "Replace Name",
+            "type": "string"
+          },
+          "replace_photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Replace Photo Url"
+          },
+          "replace_player_id": {
+            "format": "uuid",
+            "title": "Replace Player Id",
+            "type": "string"
+          },
+          "role_flexibility_delta": {
+            "title": "Role Flexibility Delta",
+            "type": "integer"
+          },
+          "target_name": {
+            "title": "Target Name",
+            "type": "string"
+          },
+          "target_photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Photo Url"
+          },
+          "target_player_id": {
+            "format": "uuid",
+            "title": "Target Player Id",
+            "type": "string"
+          },
+          "value_over_replacement": {
+            "title": "Value Over Replacement",
+            "type": "number"
+          }
+        },
+        "required": [
+          "recommendation_id",
+          "target_player_id",
+          "target_name",
+          "replace_player_id",
+          "replace_name",
+          "asking_price",
+          "expected_improvement",
+          "value_over_replacement",
+          "budget_efficiency",
+          "formation_before",
+          "formation_after",
+          "horizon_improvements",
+          "role_flexibility_delta",
+          "confidence",
+          "explanations"
+        ],
+        "title": "MarketRecommendationItem",
+        "type": "object"
+      },
+      "MarketRecommendationRequest": {
+        "properties": {
+          "fantasy_team_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fantasy Team Id"
+          },
+          "horizon": {
+            "default": 1,
+            "enum": [
+              1,
+              3,
+              5,
+              10
+            ],
+            "title": "Horizon",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 20,
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "recover_purchase_price": {
+            "default": false,
+            "title": "Recover Purchase Price",
+            "type": "boolean"
+          }
+        },
+        "title": "MarketRecommendationRequest",
+        "type": "object"
+      },
+      "MarketRecommendationView": {
+        "properties": {
+          "data_cutoff": {
+            "format": "date-time",
+            "title": "Data Cutoff",
+            "type": "string"
+          },
+          "decision_cutoff": {
+            "format": "date-time",
+            "title": "Decision Cutoff",
+            "type": "string"
+          },
+          "fantasy_team_id": {
+            "format": "uuid",
+            "title": "Fantasy Team Id",
+            "type": "string"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MarketRecommendationItem"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "remaining_budget": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining Budget"
+          },
+          "warnings": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "fantasy_team_id",
+          "remaining_budget",
+          "data_cutoff",
+          "decision_cutoff",
+          "items"
+        ],
+        "title": "MarketRecommendationView",
+        "type": "object"
+      },
+      "MatchPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MatchSummary"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "items",
+          "meta"
+        ],
+        "title": "MatchPage",
+        "type": "object"
+      },
+      "MatchSummary": {
+        "properties": {
+          "away_score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Away Score"
+          },
+          "away_team": {
+            "$ref": "#/components/schemas/TeamSummary"
+          },
+          "home_score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Home Score"
+          },
+          "home_team": {
+            "$ref": "#/components/schemas/TeamSummary"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kickoff_at": {
+            "format": "date-time",
+            "title": "Kickoff At",
+            "type": "string"
+          },
+          "kickoff_precision": {
+            "$ref": "#/components/schemas/KickoffPrecision",
+            "default": "unknown",
+            "description": "Only minute precision identifies a kickoff clock. Date/unknown represents a UTC calendar day and must not be displayed as a confirmed time or shifted to another day."
+          },
+          "matchweek": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matchweek"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kickoff_at",
+          "matchweek",
+          "status",
+          "home_team",
+          "away_team",
+          "home_score",
+          "away_score"
+        ],
+        "title": "MatchSummary",
+        "type": "object"
+      },
+      "MatchupRecommendationRequest": {
+        "properties": {
+          "fantasy_team_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fantasy Team Id"
+          },
+          "opponent_fantasy_team_id": {
+            "format": "uuid",
+            "title": "Opponent Fantasy Team Id",
+            "type": "string"
+          },
+          "seed": {
+            "default": 2026,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "simulation_count": {
+            "default": 2000,
+            "maximum": 100000.0,
+            "minimum": 100.0,
+            "title": "Simulation Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "opponent_fantasy_team_id"
+        ],
+        "title": "MatchupRecommendationRequest",
+        "type": "object"
+      },
+      "MatchupRecommendationView": {
+        "properties": {
+          "draw_probability": {
+            "title": "Draw Probability",
+            "type": "number"
+          },
+          "lineup": {
+            "$ref": "#/components/schemas/LineupRecommendationView"
+          },
+          "loss_probability": {
+            "title": "Loss Probability",
+            "type": "number"
+          },
+          "opponent_fantasy_team_id": {
+            "format": "uuid",
+            "title": "Opponent Fantasy Team Id",
+            "type": "string"
+          },
+          "simulation_count": {
+            "title": "Simulation Count",
+            "type": "integer"
+          },
+          "win_probability": {
+            "title": "Win Probability",
+            "type": "number"
+          }
+        },
+        "required": [
+          "lineup",
+          "opponent_fantasy_team_id",
+          "win_probability",
+          "draw_probability",
+          "loss_probability",
+          "simulation_count"
+        ],
+        "title": "MatchupRecommendationView",
+        "type": "object"
+      },
+      "ModifierBand": {
+        "additionalProperties": false,
+        "properties": {
+          "minimum_average": {
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Minimum Average",
+            "type": "number"
+          },
+          "points": {
+            "title": "Points",
+            "type": "number"
+          }
+        },
+        "required": [
+          "minimum_average",
+          "points"
+        ],
+        "title": "ModifierBand",
+        "type": "object"
+      },
+      "PageMeta": {
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "limit",
+          "offset",
+          "total"
+        ],
+        "title": "PageMeta",
+        "type": "object"
+      },
+      "PlayerDetail": {
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "current_team": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TeamSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "date_of_birth": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Of Birth"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "height_cm": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height Cm"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "nationality_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nationality Code"
+          },
+          "photo_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Source"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "preferred_foot": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preferred Foot"
+          },
+          "primary_position": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Position"
+          }
+        },
+        "required": [
+          "id",
+          "display_name",
+          "primary_position",
+          "nationality_code",
+          "active",
+          "date_of_birth",
+          "preferred_foot",
+          "height_cm"
+        ],
+        "title": "PlayerDetail",
+        "type": "object"
+      },
+      "PlayerFixtureOutlook": {
+        "properties": {
+          "available": {
+            "title": "Available",
+            "type": "boolean"
+          },
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "expected_points": {
+            "title": "Expected Points",
+            "type": "number"
+          },
+          "explanations": {
+            "items": {
+              "$ref": "#/components/schemas/ExplanationView"
+            },
+            "title": "Explanations",
+            "type": "array"
+          },
+          "football": {
+            "$ref": "#/components/schemas/PlayerFootballOutlook"
+          },
+          "match": {
+            "$ref": "#/components/schemas/MatchSummary"
+          },
+          "median_points": {
+            "title": "Median Points",
+            "type": "number"
+          },
+          "p10_points": {
+            "title": "P10 Points",
+            "type": "number"
+          },
+          "p90_points": {
+            "title": "P90 Points",
+            "type": "number"
+          },
+          "scoring_appearance_probability": {
+            "description": "Probability of positive minutes meeting the league's appearance_minimum_minutes.",
+            "title": "Scoring Appearance Probability",
+            "type": "number"
+          }
+        },
+        "required": [
+          "match",
+          "expected_points",
+          "median_points",
+          "p10_points",
+          "p90_points",
+          "available",
+          "scoring_appearance_probability",
+          "confidence",
+          "football",
+          "explanations"
+        ],
+        "title": "PlayerFixtureOutlook",
+        "type": "object"
+      },
+      "PlayerFixturePrediction": {
+        "properties": {
+          "data_cutoff": {
+            "format": "date-time",
+            "title": "Data Cutoff",
+            "type": "string"
+          },
+          "match": {
+            "$ref": "#/components/schemas/MatchSummary"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          },
+          "prediction_cutoff": {
+            "format": "date-time",
+            "title": "Prediction Cutoff",
+            "type": "string"
+          },
+          "prediction_run_id": {
+            "format": "uuid",
+            "title": "Prediction Run Id",
+            "type": "string"
+          },
+          "values": {
+            "items": {
+              "$ref": "#/components/schemas/PredictionValue"
+            },
+            "title": "Values",
+            "type": "array"
+          }
+        },
+        "required": [
+          "player_id",
+          "prediction_run_id",
+          "match",
+          "prediction_cutoff",
+          "data_cutoff",
+          "values"
+        ],
+        "title": "PlayerFixturePrediction",
+        "type": "object"
+      },
+      "PlayerFootballOutlook": {
+        "properties": {
+          "appearance_probability": {
+            "title": "Appearance Probability",
+            "type": "number"
+          },
+          "assist_probability": {
+            "title": "Assist Probability",
+            "type": "number"
+          },
+          "clean_sheet_probability": {
+            "description": "Probability of at least 60 player minutes and zero team goals conceded in the simulated fixture.",
+            "title": "Clean Sheet Probability",
+            "type": "number"
+          },
+          "goal_probability": {
+            "title": "Goal Probability",
+            "type": "number"
+          },
+          "mean_goals_conceded": {
+            "title": "Mean Goals Conceded",
+            "type": "number"
+          },
+          "mean_minutes": {
+            "title": "Mean Minutes",
+            "type": "number"
+          },
+          "mean_saves": {
+            "title": "Mean Saves",
+            "type": "number"
+          },
+          "median_minutes": {
+            "title": "Median Minutes",
+            "type": "number"
+          },
+          "p10_minutes": {
+            "title": "P10 Minutes",
+            "type": "number"
+          },
+          "p90_minutes": {
+            "title": "P90 Minutes",
+            "type": "number"
+          },
+          "start_probability": {
+            "title": "Start Probability",
+            "type": "number"
+          }
+        },
+        "required": [
+          "mean_minutes",
+          "median_minutes",
+          "p10_minutes",
+          "p90_minutes",
+          "start_probability",
+          "appearance_probability",
+          "goal_probability",
+          "assist_probability",
+          "clean_sheet_probability",
+          "mean_saves",
+          "mean_goals_conceded"
+        ],
+        "title": "PlayerFootballOutlook",
+        "type": "object"
+      },
+      "PlayerFormMatch": {
+        "properties": {
+          "assists": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assists"
+          },
+          "base_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Rating"
+          },
+          "field_sources": {
+            "additionalProperties": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Field Sources",
+            "type": "object"
+          },
+          "goals": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goals"
+          },
+          "is_home": {
+            "title": "Is Home",
+            "type": "boolean"
+          },
+          "kickoff_at": {
+            "format": "date-time",
+            "title": "Kickoff At",
+            "type": "string"
+          },
+          "kickoff_precision": {
+            "$ref": "#/components/schemas/KickoffPrecision",
+            "default": "unknown",
+            "description": "Only minute precision identifies a kickoff clock. Otherwise display the UTC calendar date without a time, preserving the source date in every viewing timezone."
+          },
+          "match_id": {
+            "format": "uuid",
+            "title": "Match Id",
+            "type": "string"
+          },
+          "matchweek": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matchweek"
+          },
+          "minutes": {
+            "title": "Minutes",
+            "type": "integer"
+          },
+          "opponent": {
+            "$ref": "#/components/schemas/TeamSummary"
+          },
+          "shots": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shots"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerStatProvenance"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "started": {
+            "title": "Started",
+            "type": "boolean"
+          },
+          "team": {
+            "$ref": "#/components/schemas/TeamSummary"
+          },
+          "xa": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Xa"
+          },
+          "xg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Xg"
+          }
+        },
+        "required": [
+          "match_id",
+          "kickoff_at",
+          "matchweek",
+          "team",
+          "opponent",
+          "is_home",
+          "minutes",
+          "started",
+          "goals",
+          "assists",
+          "shots",
+          "xg",
+          "xa",
+          "base_rating",
+          "field_sources",
+          "sources"
+        ],
+        "title": "PlayerFormMatch",
+        "type": "object"
+      },
+      "PlayerOutlookRequest": {
+        "properties": {
+          "horizon": {
+            "default": 1,
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Horizon",
+            "type": "integer"
+          }
+        },
+        "title": "PlayerOutlookRequest",
+        "type": "object"
+      },
+      "PlayerOutlookView": {
+        "properties": {
+          "data_cutoff": {
+            "format": "date-time",
+            "title": "Data Cutoff",
+            "type": "string"
+          },
+          "decision_cutoff": {
+            "format": "date-time",
+            "title": "Decision Cutoff",
+            "type": "string"
+          },
+          "fixtures": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerFixtureOutlook"
+            },
+            "title": "Fixtures",
+            "type": "array"
+          },
+          "league_id": {
+            "format": "uuid",
+            "title": "League Id",
+            "type": "string"
+          },
+          "model_versions": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Model Versions",
+            "type": "object"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          },
+          "prediction_cutoff": {
+            "format": "date-time",
+            "title": "Prediction Cutoff",
+            "type": "string"
+          },
+          "prediction_run_id": {
+            "format": "uuid",
+            "title": "Prediction Run Id",
+            "type": "string"
+          },
+          "recommendation_score": {
+            "$ref": "#/components/schemas/PlayerRecommendationScore"
+          },
+          "requested_horizon": {
+            "title": "Requested Horizon",
+            "type": "integer"
+          },
+          "roles": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Roles",
+            "type": "array"
+          },
+          "rules_version": {
+            "title": "Rules Version",
+            "type": "integer"
+          },
+          "scoring_role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scoring Role"
+          },
+          "seed": {
+            "title": "Seed",
+            "type": "integer"
+          },
+          "simulation_count": {
+            "title": "Simulation Count",
+            "type": "integer"
+          },
+          "warnings": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "player_id",
+          "league_id",
+          "rules_version",
+          "roles",
+          "scoring_role",
+          "recommendation_score",
+          "requested_horizon",
+          "fixtures",
+          "prediction_run_id",
+          "model_versions",
+          "prediction_cutoff",
+          "data_cutoff",
+          "decision_cutoff",
+          "simulation_count",
+          "seed"
+        ],
+        "title": "PlayerOutlookView",
+        "type": "object"
+      },
+      "PlayerPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerSummary"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "items",
+          "meta"
+        ],
+        "title": "PlayerPage",
+        "type": "object"
+      },
+      "PlayerRecentFormView": {
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "coverage": {
+            "const": "observed_player_matches",
+            "default": "observed_player_matches",
+            "title": "Coverage",
+            "type": "string"
+          },
+          "data_cutoff": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Cutoff"
+          },
+          "items": {
+            "description": "Newest observed finished player matches first; missing matches are not zeroes.",
+            "items": {
+              "$ref": "#/components/schemas/PlayerFormMatch"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          },
+          "warnings": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "player_id",
+          "as_of",
+          "data_cutoff",
+          "limit",
+          "items"
+        ],
+        "title": "PlayerRecentFormView",
+        "type": "object"
+      },
+      "PlayerRecommendationScore": {
+        "properties": {
+          "objective": {
+            "const": "expected_points",
+            "default": "expected_points",
+            "title": "Objective",
+            "type": "string"
+          },
+          "scope": {
+            "const": "individual_next_fixture",
+            "default": "individual_next_fixture",
+            "title": "Scope",
+            "type": "string"
+          },
+          "unit": {
+            "const": "fantasy_points",
+            "default": "fantasy_points",
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "description": "Mean individual fantasy points in the next fixture under the active league rules. Not a 0-100 rating, a probability, or a guarantee of selection in a legal XI. Lineup-level modifiers and substitutions are excluded.",
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "title": "PlayerRecommendationScore",
+        "type": "object"
+      },
+      "PlayerStatProvenance": {
+        "properties": {
+          "adapter_version": {
+            "title": "Adapter Version",
+            "type": "string"
+          },
+          "available_at": {
+            "format": "date-time",
+            "title": "Available At",
+            "type": "string"
+          },
+          "event_time": {
+            "format": "date-time",
+            "title": "Event Time",
+            "type": "string"
+          },
+          "field_provenance": {
+            "additionalProperties": true,
+            "title": "Field Provenance",
+            "type": "object"
+          },
+          "ingested_at": {
+            "format": "date-time",
+            "title": "Ingested At",
+            "type": "string"
+          },
+          "ingestion_run_id": {
+            "format": "uuid",
+            "title": "Ingestion Run Id",
+            "type": "string"
+          },
+          "schema_version_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Schema Version Id"
+          },
+          "source_id": {
+            "format": "uuid",
+            "title": "Source Id",
+            "type": "string"
+          },
+          "source_key": {
+            "title": "Source Key",
+            "type": "string"
+          },
+          "source_name": {
+            "title": "Source Name",
+            "type": "string"
+          },
+          "source_priority": {
+            "title": "Source Priority",
+            "type": "integer"
+          },
+          "source_record_id": {
+            "title": "Source Record Id",
+            "type": "string"
+          },
+          "stat_id": {
+            "format": "uuid",
+            "title": "Stat Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "stat_id",
+          "source_id",
+          "source_key",
+          "source_name",
+          "source_priority",
+          "source_record_id",
+          "ingestion_run_id",
+          "schema_version_id",
+          "adapter_version",
+          "event_time",
+          "available_at",
+          "ingested_at",
+          "field_provenance"
+        ],
+        "title": "PlayerStatProvenance",
+        "type": "object"
+      },
+      "PlayerSummary": {
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "nationality_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nationality Code"
+          },
+          "photo_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Source"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "primary_position": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Position"
+          }
+        },
+        "required": [
+          "id",
+          "display_name",
+          "primary_position",
+          "nationality_code",
+          "active"
+        ],
+        "title": "PlayerSummary",
+        "type": "object"
+      },
+      "PredictionValue": {
+        "properties": {
+          "expected_value": {
+            "title": "Expected Value",
+            "type": "number"
+          },
+          "median": {
+            "title": "Median",
+            "type": "number"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "p10": {
+            "title": "P10",
+            "type": "number"
+          },
+          "p90": {
+            "title": "P90",
+            "type": "number"
+          },
+          "probability": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Probability"
+          },
+          "reliability": {
+            "title": "Reliability",
+            "type": "number"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "target",
+          "model_version",
+          "expected_value",
+          "median",
+          "p10",
+          "p90",
+          "probability",
+          "reliability"
+        ],
+        "title": "PredictionValue",
+        "type": "object"
+      },
+      "ReadyDependency": {
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "ready": {
+            "title": "Ready",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "ready"
+        ],
+        "title": "ReadyDependency",
+        "type": "object"
+      },
+      "ReadyResponse": {
+        "properties": {
+          "dependencies": {
+            "items": {
+              "$ref": "#/components/schemas/ReadyDependency"
+            },
+            "title": "Dependencies",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "not_ready"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "dependencies",
+          "timestamp"
+        ],
+        "title": "ReadyResponse",
+        "type": "object"
+      },
+      "ResolutionCandidateView": {
+        "properties": {
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "player_id",
+          "display_name",
+          "confidence",
+          "evidence"
+        ],
+        "title": "ResolutionCandidateView",
+        "type": "object"
+      },
+      "RiskMode": {
+        "enum": [
+          "balanced",
+          "floor",
+          "upside",
+          "matchup"
+        ],
+        "title": "RiskMode",
+        "type": "string"
+      },
+      "RosterConstraints": {
+        "additionalProperties": false,
+        "properties": {
+          "maximum_players": {
+            "anyOf": [
+              {
+                "maximum": 500.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maximum Players"
+          },
+          "minimum_players": {
+            "default": 0,
+            "maximum": 500.0,
+            "minimum": 0.0,
+            "title": "Minimum Players",
+            "type": "integer"
+          },
+          "role_limits": {
+            "additionalProperties": {
+              "maximum": 500.0,
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "title": "Role Limits",
+            "type": "object"
+          }
+        },
+        "title": "RosterConstraints",
+        "type": "object"
+      },
+      "RosterImportRequest": {
+        "properties": {
+          "fantasy_team_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fantasy Team Id"
+          },
+          "fantasy_team_name": {
+            "default": "La mia rosa",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Fantasy Team Name",
+            "type": "string"
+          },
+          "is_user_team": {
+            "default": true,
+            "title": "Is User Team",
+            "type": "boolean"
+          },
+          "players": {
+            "items": {
+              "$ref": "#/components/schemas/ImportPlayer"
+            },
+            "maxItems": 500,
+            "minItems": 1,
+            "title": "Players",
+            "type": "array"
+          },
+          "remaining_credits": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining Credits"
+          },
+          "replace_existing": {
+            "default": true,
+            "title": "Replace Existing",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "players"
+        ],
+        "title": "RosterImportRequest",
+        "type": "object"
+      },
+      "RosterIssue": {
+        "properties": {
+          "code": {
+            "enum": [
+              "minimum_players",
+              "maximum_players",
+              "role_limits",
+              "missing_roles"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "RosterIssue",
+        "type": "object"
+      },
+      "RosterPlayerView": {
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          },
+          "primary_position": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Position"
+          },
+          "purchase_price": {
+            "anyOf": [
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purchase Price"
+          },
+          "roles": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Roles",
+            "type": "array"
+          }
+        },
+        "required": [
+          "player_id",
+          "display_name",
+          "roles",
+          "primary_position",
+          "purchase_price",
+          "active"
+        ],
+        "title": "RosterPlayerView",
+        "type": "object"
+      },
+      "RosterValidation": {
+        "properties": {
+          "issues": {
+            "items": {
+              "$ref": "#/components/schemas/RosterIssue"
+            },
+            "title": "Issues",
+            "type": "array"
+          },
+          "player_count": {
+            "title": "Player Count",
+            "type": "integer"
+          },
+          "valid": {
+            "title": "Valid",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "valid",
+          "player_count",
+          "issues"
+        ],
+        "title": "RosterValidation",
+        "type": "object"
+      },
+      "RosterView": {
+        "properties": {
+          "fantasy_team": {
+            "$ref": "#/components/schemas/FantasyTeamView"
+          },
+          "players": {
+            "items": {
+              "$ref": "#/components/schemas/RosterPlayerView"
+            },
+            "title": "Players",
+            "type": "array"
+          },
+          "validation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RosterValidation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "fantasy_team",
+          "players"
+        ],
+        "title": "RosterView",
+        "type": "object"
+      },
+      "ScoringRules": {
+        "additionalProperties": false,
+        "properties": {
+          "appearance_minimum_minutes": {
+            "default": 1,
+            "maximum": 130.0,
+            "minimum": 0.0,
+            "title": "Appearance Minimum Minutes",
+            "type": "integer"
+          },
+          "assist_points": {
+            "default": 1.0,
+            "title": "Assist Points",
+            "type": "number"
+          },
+          "base_rating_enabled": {
+            "default": true,
+            "title": "Base Rating Enabled",
+            "type": "boolean"
+          },
+          "base_rating_fallback": {
+            "default": 6.0,
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Base Rating Fallback",
+            "type": "number"
+          },
+          "clean_sheet_points": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "propertyNames": {
+              "enum": [
+                "GK",
+                "DEF",
+                "MID",
+                "FWD"
+              ]
+            },
+            "title": "Clean Sheet Points",
+            "type": "object"
+          },
+          "defensive_modifier_bands": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ModifierBand"
+            },
+            "title": "Defensive Modifier Bands",
+            "type": "array"
+          },
+          "defensive_modifier_enabled": {
+            "default": false,
+            "title": "Defensive Modifier Enabled",
+            "type": "boolean"
+          },
+          "defensive_modifier_roles": {
+            "default": [
+              "GK",
+              "DEF"
+            ],
+            "items": {
+              "enum": [
+                "GK",
+                "DEF",
+                "MID",
+                "FWD"
+              ],
+              "type": "string"
+            },
+            "title": "Defensive Modifier Roles",
+            "type": "array"
+          },
+          "goal_conceded_points": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "propertyNames": {
+              "enum": [
+                "GK",
+                "DEF",
+                "MID",
+                "FWD"
+              ]
+            },
+            "title": "Goal Conceded Points",
+            "type": "object"
+          },
+          "goal_points": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "propertyNames": {
+              "enum": [
+                "GK",
+                "DEF",
+                "MID",
+                "FWD"
+              ]
+            },
+            "title": "Goal Points",
+            "type": "object"
+          },
+          "own_goal_points": {
+            "default": -2.0,
+            "title": "Own Goal Points",
+            "type": "number"
+          },
+          "penalty_missed_points": {
+            "default": -3.0,
+            "title": "Penalty Missed Points",
+            "type": "number"
+          },
+          "penalty_saved_points": {
+            "default": 3.0,
+            "title": "Penalty Saved Points",
+            "type": "number"
+          },
+          "red_card_points": {
+            "default": -1.0,
+            "title": "Red Card Points",
+            "type": "number"
+          },
+          "save_points": {
+            "default": 0.0,
+            "title": "Save Points",
+            "type": "number"
+          },
+          "yellow_card_points": {
+            "default": -0.5,
+            "title": "Yellow Card Points",
+            "type": "number"
+          }
+        },
+        "title": "ScoringRules",
+        "type": "object"
+      },
+      "SelectedPlayerView": {
+        "properties": {
+          "appearance_probability": {
+            "title": "Appearance Probability",
+            "type": "number"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "expected_points": {
+            "title": "Expected Points",
+            "type": "number"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "player_id": {
+            "format": "uuid",
+            "title": "Player Id",
+            "type": "string"
+          },
+          "slot": {
+            "title": "Slot",
+            "type": "string"
+          }
+        },
+        "required": [
+          "player_id",
+          "display_name",
+          "slot",
+          "expected_points",
+          "appearance_probability"
+        ],
+        "title": "SelectedPlayerView",
+        "type": "object"
+      },
+      "SourceStatusView": {
+        "properties": {
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Capabilities",
+            "type": "array"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "latest_attempt_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Attempt Status"
+          },
+          "latest_observation": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Observation"
+          },
+          "latest_successful_ingestion": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Successful Ingestion"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "available",
+              "stale",
+              "failed",
+              "unconfigured",
+              "unavailable"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "status",
+          "latest_observation",
+          "latest_successful_ingestion",
+          "latest_attempt_status",
+          "capabilities"
+        ],
+        "title": "SourceStatusView",
+        "type": "object"
+      },
+      "SubstitutionRules": {
+        "additionalProperties": false,
+        "properties": {
+          "allow_formation_change": {
+            "default": false,
+            "title": "Allow Formation Change",
+            "type": "boolean"
+          },
+          "bench_size": {
+            "anyOf": [
+              {
+                "maximum": 50.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 7,
+            "title": "Bench Size"
+          },
+          "maximum_substitutions": {
+            "default": 5,
+            "maximum": 11.0,
+            "minimum": 0.0,
+            "title": "Maximum Substitutions",
+            "type": "integer"
+          }
+        },
+        "title": "SubstitutionRules",
+        "type": "object"
+      },
+      "SystemStatusView": {
+        "properties": {
+          "champion_models": {
+            "title": "Champion Models",
+            "type": "integer"
+          },
+          "freshness": {
+            "$ref": "#/components/schemas/FreshnessView"
+          },
+          "incompatible_champion_models": {
+            "default": 0,
+            "title": "Incompatible Champion Models",
+            "type": "integer"
+          },
+          "notices": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notices",
+            "type": "array"
+          },
+          "queued_jobs": {
+            "title": "Queued Jobs",
+            "type": "integer"
+          },
+          "running_jobs": {
+            "title": "Running Jobs",
+            "type": "integer"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceStatusView"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "healthy",
+              "updating",
+              "degraded"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "unresolved_blocking_issues": {
+            "title": "Unresolved Blocking Issues",
+            "type": "integer"
+          },
+          "unresolved_quality_issues": {
+            "title": "Unresolved Quality Issues",
+            "type": "integer"
+          },
+          "upcoming_fixture_count": {
+            "default": 0,
+            "title": "Upcoming Fixture Count",
+            "type": "integer"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "status",
+          "freshness",
+          "unresolved_quality_issues",
+          "unresolved_blocking_issues",
+          "champion_models",
+          "queued_jobs",
+          "running_jobs",
+          "warnings"
+        ],
+        "title": "SystemStatusView",
+        "type": "object"
+      },
+      "TeamPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/TeamSummary"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "items",
+          "meta"
+        ],
+        "title": "TeamPage",
+        "type": "object"
+      },
+      "TeamSummary": {
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country Code"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "short_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short Name"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "short_name",
+          "country_code"
+        ],
+        "title": "TeamSummary",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Probabilistic decision support for Italian Fantacalcio.",
+    "title": "MarkGuardiola",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/admin/data/refresh": {
+      "post": {
+        "operationId": "refreshData",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Refresh Data",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/api/v1/admin/jobs/{job_id}": {
+      "get": {
+        "operationId": "getAdminJob",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Job",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/api/v1/admin/models/train": {
+      "post": {
+        "operationId": "trainModels",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Train Models",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/api/v1/fixtures/upcoming": {
+      "get": {
+        "operationId": "listUpcomingFixtures",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "team_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Team Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Upcoming Fixtures",
+        "tags": [
+          "football"
+        ]
+      }
+    },
+    "/api/v1/leagues": {
+      "get": {
+        "operationId": "listLeagues",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "local_identity",
+            "required": false,
+            "schema": {
+              "default": "local-owner",
+              "maxLength": 160,
+              "minLength": 1,
+              "title": "Local Identity",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 25,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaguePage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Leagues",
+        "tags": [
+          "leagues"
+        ]
+      },
+      "post": {
+        "operationId": "createLeague",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeagueCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create League",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}": {
+      "get": {
+        "operationId": "getLeague",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read League",
+        "tags": [
+          "leagues"
+        ]
+      },
+      "patch": {
+        "operationId": "updateLeagueSettings",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeagueSettingsWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update League Settings",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/market/import": {
+      "post": {
+        "operationId": "importMarket",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketImportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Import Market",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/players/{player_id}/outlook": {
+      "post": {
+        "operationId": "getPlayerLeagueOutlook",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "player_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Player Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlayerOutlookRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerOutlookView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Player League Outlook",
+        "tags": [
+          "player-insights"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/recommendations/lineup": {
+      "post": {
+        "operationId": "recommendLineup",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LineupRecommendationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineupRecommendationView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Recommend Lineup",
+        "tags": [
+          "decisions"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/recommendations/market": {
+      "post": {
+        "operationId": "recommendMarket",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketRecommendationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketRecommendationView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Recommend Market",
+        "tags": [
+          "decisions"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/recommendations/matchup": {
+      "post": {
+        "operationId": "recommendMatchup",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatchupRecommendationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchupRecommendationView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Recommend Matchup",
+        "tags": [
+          "decisions"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/rosters": {
+      "get": {
+        "operationId": "listLeagueRosters",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RosterView"
+                  },
+                  "title": "Response Listleaguerosters",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Rosters",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/rosters/import": {
+      "post": {
+        "operationId": "importRoster",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RosterImportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Import Roster",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/rules": {
+      "put": {
+        "operationId": "replaceLeagueRules",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeagueRulesWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeagueRulesView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Replace League Rules",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/leagues/{league_id}/teams/{fantasy_team_id}/budget": {
+      "put": {
+        "operationId": "updateFantasyTeamBudget",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "league_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "League Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "fantasy_team_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Fantasy Team Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Budget",
+        "tags": [
+          "leagues"
+        ]
+      }
+    },
+    "/api/v1/matches": {
+      "get": {
+        "operationId": "listMatches",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "team_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Team Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 32,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from_at",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "From At"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to_at",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "To At"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Matches",
+        "tags": [
+          "football"
+        ]
+      }
+    },
+    "/api/v1/players": {
+      "get": {
+        "operationId": "listPlayers",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "position",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 32,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Position"
+            }
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Active"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Players",
+        "tags": [
+          "football"
+        ]
+      }
+    },
+    "/api/v1/players/{player_id}": {
+      "get": {
+        "operationId": "getPlayer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "player_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Player Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Player",
+        "tags": [
+          "football"
+        ]
+      }
+    },
+    "/api/v1/players/{player_id}/recent-form": {
+      "get": {
+        "operationId": "getPlayerRecentForm",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "player_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Player Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 5,
+              "maximum": 20,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "As Of"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerRecentFormView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Player Recent Form",
+        "tags": [
+          "player-insights"
+        ]
+      }
+    },
+    "/api/v1/predictions/fixture/{match_id}": {
+      "get": {
+        "operationId": "getFixturePredictions",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "match_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Match Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FixturePrediction"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Fixture Predictions",
+        "tags": [
+          "predictions"
+        ]
+      }
+    },
+    "/api/v1/predictions/player/{player_id}": {
+      "get": {
+        "operationId": "getPlayerPredictions",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "player_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Player Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PlayerFixturePrediction"
+                  },
+                  "title": "Response Getplayerpredictions",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Player Predictions",
+        "tags": [
+          "predictions"
+        ]
+      }
+    },
+    "/api/v1/system/status": {
+      "get": {
+        "operationId": "getSystemStatus",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemStatusView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "System Status",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/v1/teams": {
+      "get": {
+        "operationId": "listTeams",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 160,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Active"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Teams",
+        "tags": [
+          "football"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/ready": {
+      "get": {
+        "operationId": "ready",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadyResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Ready",
+        "tags": [
+          "system"
+        ]
+      }
+    }
+  }
+}

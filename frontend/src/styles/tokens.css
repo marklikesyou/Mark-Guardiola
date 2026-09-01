@@ -1,0 +1,112 @@
+:root {
+  color-scheme: light;
+
+
+  --paper: #eff0f0;
+  --surface: #fafbfb;
+  --surface-raised: #ffffff;
+
+
+  --ink: #1a1d24;
+  --ink-2: #464c56;
+  --ink-3: #666d76;
+  --ink-faint: rgba(26, 29, 36, 0.55);
+
+
+  --rule: rgba(26, 29, 36, 0.18);
+  --rule-strong: rgba(26, 29, 36, 0.42);
+  --zebra: rgba(26, 29, 36, 0.035);
+  --wash: rgba(26, 29, 36, 0.05);
+
+
+  --azzurro: #1e3fae;
+  --azzurro-deep: #172f83;
+  --azzurro-wash: rgba(30, 63, 174, 0.08);
+  --azzurro-on: #ffffff;
+
+
+  --ok: #1b6e3a;
+  --ok-wash: rgba(27, 110, 58, 0.09);
+  --warn: #8a5b00;
+  --warn-wash: rgba(138, 91, 0, 0.1);
+  --bad: #a52a21;
+  --bad-wash: rgba(165, 42, 33, 0.08);
+
+
+  --flag-green: #008c45;
+  --flag-white: #f4f5f0;
+  --flag-red: #cd212a;
+
+
+  --font:
+    "Barlow Semi Condensed", "Arial Narrow", "Helvetica Neue", Arial,
+    system-ui, sans-serif;
+  --stretch-display: 100%;
+  --stretch-text: 100%;
+
+  --t-micro: 0.75rem;
+  --t-meta: 0.875rem;
+  --t-body: 1rem;
+  --t-lead: 1.125rem;
+  --t-head: 1.3125rem;
+  --t-title: 1.875rem;
+  --t-display: clamp(2.25rem, 1.5rem + 2.5vw, 3.25rem);
+
+
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+
+  --radius: 2px;
+  --radius-control: 3px;
+  --content-max: 70rem;
+  --target: 2.75rem;
+
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--azzurro);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --dur: 140ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+
+    --paper: #12151b;
+    --surface: #191d25;
+    --surface-raised: #1f242e;
+
+    --ink: #e9eae4;
+    --ink-2: #b4b8b0;
+    --ink-3: #939890;
+    --ink-faint: rgba(233, 234, 228, 0.55);
+
+    --rule: rgba(233, 234, 228, 0.17);
+    --rule-strong: rgba(233, 234, 228, 0.4);
+    --zebra: rgba(233, 234, 228, 0.045);
+    --wash: rgba(233, 234, 228, 0.06);
+
+    --azzurro: #93aaf7;
+    --azzurro-deep: #b3c3fa;
+    --azzurro-wash: rgba(147, 170, 247, 0.12);
+    --azzurro-on: #101523;
+
+    --ok: #6fbd8b;
+    --ok-wash: rgba(111, 189, 139, 0.12);
+    --warn: #d3a94e;
+    --warn-wash: rgba(211, 169, 78, 0.12);
+    --bad: #e58a80;
+    --bad-wash: rgba(229, 138, 128, 0.1);
+
+    --flag-green: #2ea45f;
+    --flag-white: #e9eae4;
+    --flag-red: #e05a60;
+
+    --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--azzurro);
+  }
+}
